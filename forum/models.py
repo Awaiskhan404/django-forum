@@ -32,15 +32,18 @@ class Topic(models.Model):
     visits = models.IntegerField(default=0)
     user_lst = models.TextField(blank=True, null=True)
 
+    def get_questions(self):
+        return Question.objects.filter(topic=self.id)
+
     def num_posts(self):
-        return self.post_set.count()
+        return self.question_set.count()
 
     def num_replies(self):
-        return max(0, self.post_set.count() - 1)
+        return max(0, self.question_set.count() - 1)
 
     def last_post(self):
-        if self.post_set.count():
-            return self.post_set.order_by("-created")[0]
+        if self.question_set.count():
+            return self.question_set.order_by("-created")[0]
 
     def sum_visits(self, user_id=None):
         if user_id:
@@ -102,3 +105,10 @@ class Question(models.Model):
         super(Question, self).save(*args, **kwargs)
 
     short.allow_tags = True
+
+class Answers(models.Model):
+    question = models.ForeignKey(Question,on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField(max_length=10000)
+    date = models.DateTimeField(auto_now_add=True)
+    votes = models.IntegerField()
