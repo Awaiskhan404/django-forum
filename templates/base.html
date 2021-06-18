@@ -18,26 +18,26 @@
          />
       <link
          rel="stylesheet"
-         href="static/fonts/icons/main/mainfont/style.css"
+         href="{% static 'fonts/icons/main/mainfont/style.css' %}"
          />
       <link
          rel="stylesheet"
-         href="static/fonts/icons/font-awesome/css/font-awesome.min.css"
+         href="{% static 'fonts/icons/font-awesome/css/font-awesome.min.css' %}"
          />
       <!-- Vendor -->
       <link
          rel="stylesheet"
-         href="static/vendor/bootstrap/v3/bootstrap.min.css"
+         href="{% static 'vendor/bootstrap/v3/bootstrap.min.css' %}"
          />
-      <link rel="stylesheet" href="static/vendor/bootstrap/v4/bootstrap-grid.css" />
+      <link rel="stylesheet" href="{% static 'vendor/bootstrap/v4/bootstrap-grid.css' %}" />
       <!-- Custom -->
-      <link rel="stylesheet" href="static/css/style.css" />
+      <link rel="stylesheet" href="{% static 'css/style.css' %}" />
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link
          href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap"
          rel="stylesheet"
          />
-      <link rel="javascript" href="static/js/app.js"/>
+      <link rel="javascript" href="{% static 'js/app.js' %}"/>
       <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -120,7 +120,7 @@
                            <p>
                               Earned Badge . 19 feb, 17<span
                                  ><img
-                                 src="static/fonts/icons/badges/Lets_talk.svg"
+                                 src="{% static 'fonts/icons/badges/Lets_talk.svg' %}"
                                  alt="Lets Talk"
                                  />Lets Talk</span
                                  >
@@ -131,7 +131,7 @@
                            <p>
                               Earned Badge . 21 feb, 17<span
                                  ><img
-                                 src="static/fonts/icons/badges/Intermediate.svg"
+                                 src="{% static 'fonts/icons/badges/Intermediate.svg' %}"
                                  alt="Intermediate"
                                  />Intermediate</span
                                  >
@@ -164,7 +164,7 @@
                </div>
                <div class="header__user">
                   <div class="header__user-btn" data-dropdown-btn="user">
-                     <img src="static/fonts/icons/avatars/A.svg" alt="avatar" />
+                     <img src="{% static 'fonts/icons/avatars/A.svg' %}" alt="avatar" />
                      azyrusmax<i class="icon-Arrow_Below"></i>
                   </div>
                   <nav
@@ -214,7 +214,7 @@
             <div class="header__offset-btn">
                <a href="create-topic.html"
                   ><img
-                  src="static/fonts/icons/main/New_Topic.svg"
+                  src="{% static 'fonts/icons/main/New_Topic.svg' %}"
                   alt="New Topic"
                   /></a>
             </div>
@@ -340,9 +340,9 @@
          </div>
       </footer>
       {% block scripts %}
-      <script src="static/vendor/jquery/jquery.min.js"></script>
-      <script src="static/vendor/velocity/velocity.min.js"></script>
-      <script src="static/js/app.js"></script>
+      <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'vendor/velocity/velocity.min.js' %}"></script>
+      <script src="{% static 'js/app.js' %}"></script>
       {% endblock %}
    </body>
 </html>

@@ -2,35 +2,16 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 
-class Category(models.Model):
-    order = models.IntegerField()
-    title = models.CharField(max_length=60)
-
-    def get_forums(self):
-        return Forum.objects.filter(category=self.id)
-
-    def __unicode__(self):
-        return self.title
-
-class Forum(models.Model):
-    title = models.CharField(max_length=60)
-    slug = slug = models.SlugField(unique=True)
-    description = models.TextField(blank=True, default='')
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    updated = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
-    creator = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 class Topic(models.Model):
     title = models.CharField(max_length=60)
     description = models.TextField(max_length=10000, blank=True, null=True)
-    forums = models.ManyToManyField(Forum)
     block_top = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     updated = models.DateTimeField(auto_now=True)
     closed = models.BooleanField(blank=True, default=False)
     visits = models.IntegerField(default=0)
-    user_lst = models.TextField(blank=True, null=True)
+    slug = models.SlugField(max_length=255, unique=True)
 
     def get_questions(self):
         return Question.objects.filter(topic=self.id)
@@ -68,7 +49,10 @@ class Topic(models.Model):
     def __unicode__(self):
         return unicode(self.creator) + " - " + self.title
 
-
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
 
 
 
@@ -80,13 +64,18 @@ class Question(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     body = models.TextField(max_length=10000)
     user_ip = models.GenericIPAddressField(blank=True, null=True)
+    views=models.IntegerField(default=0)
+
+    def get_body(self):
+        return self.body[:10]
 
     def __unicode__(self):
         return u"%s - %s - %s" % (self.creator, self.topic, self.title)
 
     def get_post_num(self):
         return Question.objects.filter(topic__id=self.topic_id).filter(created__lt=self.created).count()
-
+    def get_answer_num(self):
+        return Answers.objects.filter(question=self.id).count()
     def get_page(self):
         return self.get_post_num() / POSTS_PER_PAGE + 1
 
@@ -112,3 +101,6 @@ class Answers(models.Model):
     body = models.TextField(max_length=10000)
     date = models.DateTimeField(auto_now_add=True)
     votes = models.IntegerField()
+class UserAvatar(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    avatar=models.ImageField(upload_to='avatars')

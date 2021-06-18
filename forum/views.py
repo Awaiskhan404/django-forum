@@ -1,13 +1,24 @@
 from django.shortcuts import render
-from .models import Category, Forum, Topic, Question
+from .models import Topic, Question, UserAvatar
+from django.contrib.auth.models import User
 # Create your views here.
+
 def index(request):
     if request.method =='GET':
-        for topics in Topic.objects.all():
-            num_posts=topics.num_posts()
-            sum_visits=topics.sum_visits()
+        topics=Topic.objects.all()
     return render(request,'index.html',{
         'topics':topics,
-        'num_posts':num_posts,
-        'sum_visits':sum_visits,
         })
+def quesbytopic(request,id):
+    if request.method=='GET':
+        questions=Question.objects.filter(topic=id)
+        profile=UserAvatar.objects.filter(user=request.user.pk)
+        return render(request,'questions.html',{
+            'questions':questions,
+            'profile':profile,
+        })
+def questionview(request,id):
+    Qviews=Question.objects.get(id=post_id)
+    Qviews.views=Qviews.views+1
+    Qviews.save()
+    return render(request,'')
