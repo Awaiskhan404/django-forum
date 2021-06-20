@@ -21,7 +21,7 @@
                         
                     </div>
                     <ul>
-                        <li class="active"><a href="#">Trending</a></li>
+                        <li class="active"><a href="/">Trending</a></li>
                         <li><a href="#">New Questions</a></li>
                         <li><a href="#">Polls</a></li>
                         <li><a href="#">Post Question</a></li>
@@ -31,7 +31,7 @@
             </div>
             <div class="posts">
                 <div class="posts__head">
-                    <div class="posts__topic">Topics</div>
+                    <div class="posts__topic">Questions</div>
                     <div class="posts__category">Description</div>
                     <div class="posts__users">User</div>
                     <div class="posts__replies">Replies</div>
@@ -47,7 +47,7 @@
                                 <div class="posts__content">
                                 
                                     <a href="#">
-                                        <h3><strong>{{item.title | title}}</strong></h3>
+                                        <h3><strong><a href="/question/{{item.id}}">{{item.title}}</a></strong></h3>
                                     </a>
                                 </div>
                             </div>

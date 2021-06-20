@@ -18,7 +18,11 @@ def quesbytopic(request,id):
             'profile':profile,
         })
 def questionview(request,id):
-    Qviews=Question.objects.get(id=post_id)
+    Qviews=Question.objects.get(id=id)
+    print(Qviews.views)
     Qviews.views=Qviews.views+1
     Qviews.save()
-    return render(request,'')
+    return render(request,'single-topic.html',{
+        'question':Qviews,
+    })
+    

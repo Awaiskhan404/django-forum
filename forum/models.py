@@ -52,7 +52,7 @@ class Topic(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-        super(Post, self).save(*args, **kwargs)
+        super(Topic, self).save(*args, **kwargs)
 
 
 
@@ -104,3 +104,9 @@ class Answers(models.Model):
 class UserAvatar(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     avatar=models.ImageField(upload_to='avatars')
+# class Reply(models.Model):
+#     reply=models.ForeignKey(Answers, on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     body = models.TextField(max_length=10000)
+#     date = models.DateTimeField(auto_now_add=True)
+#     votes = models.IntegerField()

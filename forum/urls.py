@@ -4,5 +4,6 @@ from django.conf import settings
 from . import views
 urlpatterns = [
     path('',views.index,name="index"),
-    path('questions/<int:id>',views.quesbytopic,name="question")
+    path('questions/<int:id>',views.quesbytopic,name="question"),
+    path('question/<int:id>',views.questionview,name="questionview")
 ]
