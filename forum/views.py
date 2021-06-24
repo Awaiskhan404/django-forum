@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import Topic, Question, UserAvatar
+from .models import Topic, Question, UserAvatar, Answers
 from django.contrib.auth.models import User
+from . forms import QuestionForm
 # Create your views here.
 
 def index(request):
@@ -19,10 +20,16 @@ def quesbytopic(request,id):
         })
 def questionview(request,id):
     Qviews=Question.objects.get(id=id)
-    print(Qviews.views)
+    Qans=Answers.objects.filter(question=id).order_by('date')
+    print(Qans)
     Qviews.views=Qviews.views+1
     Qviews.save()
     return render(request,'single-topic.html',{
         'question':Qviews,
+        'replies':Qans,
     })
-    
+def addquestion(request):
+    form=QuestionForm()
+    return render(request,'create-topic.html',{
+        'form':form,
+    })

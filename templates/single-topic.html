@@ -38,13 +38,13 @@
                         <div class="topic">
                             <div class="topic__head">
                                 <div class="topic__avatar">
-                                    <a href="#" class="avatar"><img src="fonts/icons/avatars/B.svg" alt="avatar"></a>
+                                    <a href="#" class="avatar"><img src="{% static 'fonts/icons/avatars/B.svg' %}" alt="avatar"></a>
                                 </div>
                                 <div class="topic__caption">
                                     <div class="topic__name">
                                         <a href="#">{{question.creator.username}}</a>
                                     </div>
-                                    <div class="topic__date"><i class="icon-Watch_Later"></i>06 May, 2017</div>
+                                    <div class="topic__date"><i class="icon-Watch_Later"></i>{{question.created}}</div>
                                 </div>
                             </div>
                             <div class="topic__content">
@@ -56,38 +56,39 @@
                                    
                                     <div class="topic__footer-share">
                                     
-                                        <a href="#"><i class="icon-Reply_Fill"></i></a>
+                                        <a href="/reply/add"><i class="icon-Reply_Fill"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="answer"><h4>Replies</h4></div>
-
+                        {% for replies in replies %}
                         <div class="topic">
                             <div class="topic__head">
                                 <div class="topic__avatar">
-                                    <a href="#" class="avatar"><img src="fonts/icons/avatars/N.svg" alt="avatar"></a>
+                                    <a href="#" class="avatar"><img src="{% static 'fonts/icons/avatars/N.svg' %}" alt="avatar"></a>
                                 </div>
                                 <div class="topic__caption">
                                     <div class="topic__name">
-                                        <a href="#">Nicolas</a>
+                                        <a href="#">{{replies.user.username}}</a>
                                     </div>
                                     <div class="topic__date">
                                         <div class="topic__user topic__user--pos-r">
                                             <i class="icon-Reply_Fill"></i>
-                                            <a href="#" class="avatar"><img src="fonts/icons/avatars/B.svg" alt="avatar"></a>
-                                            <a href="#" class="topic__user-name">Benjamin Caesar</a>
+                                            <a href="#" class="avatar"><img src="{% static 'fonts/icons/avatars/B.svg' %}" alt="avatar"></a>
+                                            <a href="#" class="topic__user-name">{{replies.question.creator.username}}</a>
                                         </div>
-                                        <i class="icon-Watch_Later"></i>06 May, 2017
+                                        <i class="icon-Watch_Later"></i>{{replies.date}}
                                     </div>
                                 </div>
                             </div>
                             <div class="topic__content">
                                 <div class="topic__text">
-                                    <p>I am using BootStrap 4, but they are asking me to use PHP framework, which I won't do. My code is secure against SQL injection, XSS and all other attacks, it is well organized, i was using OOP. I just think CodeCanyon will always find a reason to reject my work....</p>
+                                    <p>{{replies.body}}</p>
                                 </div>
-                                <div class="topic__footer">
+                                {% endfor %}
+                                {% comment %} <div class="topic__footer"> {% endcomment %}
                                     {% comment %} <div class="topic__footer-likes">
                                         <div>
                                             <a href="#"><i class="icon-Upvote"></i></a>

@@ -12,6 +12,10 @@ class Topic(models.Model):
     closed = models.BooleanField(blank=True, default=False)
     visits = models.IntegerField(default=0)
     slug = models.SlugField(max_length=255, unique=True)
+    
+    def __str__(self):
+        return self.title
+    
 
     def get_questions(self):
         return Question.objects.filter(topic=self.id)
